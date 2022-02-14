@@ -15,29 +15,41 @@ public class PersonsService {
 	Map<String, List<Persons>> map = new HashMap<>();
 	Scanner scan = new Scanner(System.in);
 	
-	public void getTheData() throws IOException {
-		File file = new File("file.txt");
+	public void getTheData(String fileName) throws IOException {
+		File file = new File(fileName);
 		FileReader flr = new FileReader(file);
 		BufferedReader br = new BufferedReader(flr);
 		String str ;
 		while((str = br.readLine()) != null) {
-			String[] st = str.split("\\n");
-			for(String sr : st) {
-				sr = sr.replaceAll("\\s{2,}", " ").trim();
-				String[] stdate = sr.split("\\s");
+				String[] stdate = str.split("\\s+");
 				
-				if (map.containsKey(stdate[1])) {
-					List<Persons> prs =  map.get(stdate[1]);
-					prs.add(new Persons(stdate[0], stdate[1], stdate[2]));
-					map.put(stdate[1], prs);
+			 try {
+				if (validations(stdate)) {
+					if (map.containsKey(stdate[1])) {
+						List<Persons> prs =  map.get(stdate[1]);
+						prs.add(new Persons(stdate[0], stdate[1], stdate[2]));
+						map.put(stdate[1], prs);
+					}
+					else {
+						List<Persons> prs2 = new ArrayList<>();
+						prs2.add(new Persons(stdate[0], stdate[1], stdate[2]));
+						map.put(stdate[1], prs2);
+					}
 				}
-				else {
-					List<Persons> prs2 = new ArrayList<>();
-					prs2.add(new Persons(stdate[0], stdate[1], stdate[2]));
-					map.put(stdate[1], prs2);
-				}
-			}
+			 }
+			 catch(Exception e) {
+				 System.out.println(e);
+			 }
 		}	
+	}
+	
+	public boolean validations(String[] details) {
+		
+        String[] arr = details.trim().split("\\s+");
+		if(arr.length!=4) {
+			throw new ErrorMsg("Invalid Format");
+		}
+		
 	}
 	
 	public void loginsInDate(String date) {
@@ -47,7 +59,7 @@ public class PersonsService {
 				System.out.println(map.get(date));
 			}
 			else {
-				throw new ErrorMsg();
+				throw new ErrorMsg("Enter details are not correct. Please enter correct details");
 			}
 		} catch (Exception e) {
 			System.err.println(e);
