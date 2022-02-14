@@ -2,21 +2,13 @@ package com.bhavna.JDBC;
 
 import java.util.Scanner;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
 	
     public static void main( String[] args )
     {
         Employee emp = new Employee();
-//        emp.fetchingData();
-//        emp.insertEmpData();
-//        emp.insertDeptData();
-//        emp.updateEmpData();
-//        emp.employeesCount();
+
         Scanner scan = new Scanner(System.in);
         char condition = 'n';
         do {
@@ -30,14 +22,12 @@ public class App
 			switch (choice) {
 			case (1):
 				emp.fetchingData();
-				
 				break;
 			case (2):
 				 emp.insertEmpData();
 			     break;
 			case (3):
 				emp.insertDeptData();
-				
 				break;
 			case (4):
 				emp.updateEmpData();
