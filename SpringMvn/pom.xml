@@ -91,7 +91,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>Simple web</finalName>
+		<finalName>Simple Mvn</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
