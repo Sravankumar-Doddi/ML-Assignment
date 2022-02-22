@@ -24,7 +24,27 @@ public class PersonsService {
 				String[] stdate = str.split("\\s+");
 				
 			 try {
-				if (validations(stdate)) {
+					if(stdate.length!=4) {
+						throw new ErrorMsg("Invalid Format!!!");
+					}
+					
+					if(!stdate[0].matches("[a-zA-Z]+")) {
+						throw new ErrorMsg("Invalid Name Format");
+					}
+					
+					if (!stdate[1].matches("^(0?[1-9]|1[012])[\\/](0?[1-9]|[12][0-9]|3[01])$")) {
+						//System.out.println(stdate[1]);
+						throw new ErrorMsg("Invalid date format!!!");
+					}
+				
+					if (!stdate[2].matches("([0]?\\d|1[0-2]):([0-5]?\\d)")) {
+						throw new ErrorMsg("Invalid time format!!!");
+					}
+					
+					if (!(stdate[3].equalsIgnoreCase("AM")|| stdate[3].equalsIgnoreCase("PM"))) {
+						throw new ErrorMsg("Invalid meridiem!!!");
+					}
+					
 					if (map.containsKey(stdate[1])) {
 						List<Persons> prs =  map.get(stdate[1]);
 						prs.add(new Persons(stdate[0], stdate[1], stdate[2]));
@@ -35,21 +55,15 @@ public class PersonsService {
 						prs2.add(new Persons(stdate[0], stdate[1], stdate[2]));
 						map.put(stdate[1], prs2);
 					}
-				}
+				
+			 }
+			 catch(ErrorMsg m) {
+				 System.out.println(m);
 			 }
 			 catch(Exception e) {
 				 System.out.println(e);
 			 }
 		}	
-	}
-	
-	public boolean validations(String[] details) {
-		
-        String[] arr = details.trim().split("\\s+");
-		if(arr.length!=4) {
-			throw new ErrorMsg("Invalid Format");
-		}
-		
 	}
 	
 	public void loginsInDate(String date) {
