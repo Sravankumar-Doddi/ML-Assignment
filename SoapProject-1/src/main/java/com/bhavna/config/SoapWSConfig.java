@@ -24,7 +24,7 @@ public class SoapWSConfig {
 		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/ws/*");
 	}
 
-	@Bean(name = "loanEligibility1")
+	@Bean(name = "loanEligibility")
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
 		DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
 		defaultWsdl11Definition.setPortTypeName("LoanIndicator");
